@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            -webkit-user-select: none;
+        }
+        ul {
+            margin: 0 auto;
+        }
+        li {
+            width: 100px;
+            height: 100px;
+            background: #ccc;
+            font-size: 30px;
+            font-weight: bold;
+            line-height: 200px;
+            overflow: hidden;
+            float: left;
+            margin: 5px;
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+
+        li span {
+            position: absolute;
+            top: 0;
+            left: -100px;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;;
+            background: red;
+            opacity: 0.4;
+            filter: alpha(opacity:40);
+            font-size:10px;
+            color:white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li><span>模块1</span></li>
+    <li><span>模块2</span></li>
+    <li><span>模块3</span></li>
+    <li><span>模块4</span></li>
+    <li><span>模块5</span></li>
+    <li><span>模块6</span></li>
+    <li><span>模块1</span></li>
+    <li><span>模块2</span></li>
+    <li><span>模块3</span></li>
+    <li><span>模块4</span></li>
+    <li><span>模块5</span></li>
+    <li><span>模块6</span></li>
+    <li><span>模块1</span></li>
+    <li><span>模块2</span></li>
+    <li><span>模块3</span></li>
+    <li><span>模块4</span></li>
+    <li><span>模块5</span></li>
+    <li><span>模块6</span></li>
+    <li><span>模块1</span></li>
+    <li><span>模块2</span></li>
+    <li><span>模块3</span></li>
+    <li><span>模块4</span></li>
+    <li><span>模块5</span></li>
+    <li><span>模块6</span></li>
+    <li><span>模块1</span></li>
+    <li><span>模块2</span></li>
+    <li><span>模块3</span></li>
+    <li><span>模块4</span></li>
+    <li><span>模块5</span></li>
+    <li><span>模块6</span></li>
+    <li><span>模块1</span></li>
+    <li><span>模块2</span></li>
+    <li><span>模块3</span></li>
+    <li><span>模块4</span></li>
+    <li><span>模块5</span></li>
+    <li><span>模块6</span></li>
+    <li><span>模块1</span></li>
+    <li><span>模块2</span></li>
+    <li><span>模块3</span></li>
+    <li><span>模块4</span></li>
+    <li><span>模块5</span></li>
+    <li><span>模块6</span></li>
+</ul>
+</body>
+</html>
+<script charset="utf-8" type="text/javascript" src="js/utils.js"></script>
+<script charset="utf-8" type="text/javascript" src="js/animate.js"></script>
+<script>
+
+    function maskMove(obj) {
+        var oS = obj.children[0];
+        obj.onmouseenter = function (ev) {
+            ev = ev || window.event;
+            var dir = maskDir(obj, ev);
+            switch (dir) {
+                case 0:
+                    oS.style.left = oS.offsetWidth+'px';
+                    oS.style.top = 0;
+                    break;
+                case 1:
+                    oS.style.left = 0;
+                    oS.style.top = oS.offsetWidth+'px';
+                    break;
+                case 2:
+                    oS.style.left = -oS.offsetWidth+'px';
+                    oS.style.top = 0;
+                    break;
+                case 3:
+                    oS.style.left = 0;
+                    oS.style.top = -oS.offsetWidth+'px';
+                    break;
+            }
+            zhufengAnimate(oS, {top: 0, left: 0});
+        };
+        obj.onmouseleave = function (ev) {
+            ev = ev || event;
+            var dir = maskDir(obj, ev);
+            switch (dir) {
+                case 0:
+                    zhufengAnimate(oS, {left: oS.offsetWidth, top: 0});
+                    break;
+                case 1:
+                    zhufengAnimate(oS, {left: 0, top: oS.offsetWidth});
+                    break;
+                case 2:
+                    zhufengAnimate(oS, {left: -oS.offsetWidth, top: 0});
+                    break;
+                case 3:
+                    zhufengAnimate(oS, {left: 0, top: -oS.offsetWidth});
+                    break;
+            }
+        };
+        function maskDir(obj, ev) {
+            var x = obj.offsetLeft + obj.offsetWidth / 2 - ev.clientX;
+            var y = obj.offsetTop + obj.offsetHeight / 2 - ev.clientY;
+            return Math.round(((Math.atan2(y, x)* 180 / Math.PI) + 180) / 90) % 4;
+        }
+    }
+
+        var aLi = document.getElementsByTagName('li');
+        for (var i = 0; i < aLi.length; i++) {
+            maskMove(aLi[i]);
+        }
+
+
+</script>
